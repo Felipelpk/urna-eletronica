@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { Flex, Heading } from "@chakra-ui/react";
+import Urna from "./components/urna/urna";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Flex
+      bgColor="#1a202c"
+      width="100%"
+      height="100vh"
+      justifyContent="center"
+      alignItems="center"
+      flexDir="column"
+    >
+      <Heading
+        marginBottom="2rem"
+        color="whiteAlpha.900"
+      >
+        Simulador de Urna Eletrônica
+      </Heading>
+      <Urna />
+    </Flex>
   );
 }
 
