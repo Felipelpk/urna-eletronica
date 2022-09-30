@@ -98,7 +98,7 @@ export default function Urna(){
     };
 
     useEffect(() => {
-        if(_screen === 4){
+        if(_screen === 4 && _data !== null){
             backendApi.post('/voutes', _data)
             .then(response => {
                 _setData(null);
@@ -106,9 +106,6 @@ export default function Urna(){
             })
         }
     }, [_screen, _data])
-
-    console.log(_error, "<- Error");
-    console.log(_data, "<- Eleitor ");
 
     return (
         <Grid
