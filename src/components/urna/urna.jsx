@@ -23,13 +23,18 @@ export default function Urna(){
             _setData((prevState) => ({ ...prevState, 
                 snack: ''
             }));
+            _setValue('');
+            _setError('');
             _setScreen(prevState => prevState + 1);
+            
         }
 
         if(screen === 3){
             _setData((prevState) => ({ ...prevState, 
                 drink: ''
             }));
+            _setValue('');
+            _setError('');
             _setScreen(prevState => prevState + 1);
         }
     }
@@ -48,7 +53,7 @@ export default function Urna(){
                 .then(response => {
                     if(response.data[0].haveVoted === "true"){
                         _setError('Este eleitor já votou.');
-                    } else if(response.data.length > 0) {
+                    } else{
                         _setData({
                             voterName: response.data[0].name,
                             voterId: response.data[0].id
@@ -65,33 +70,29 @@ export default function Urna(){
         if(screen === 2){
             await backendApi.get(`/snacks?id=${_value}`)
             .then(response => {
-                if(response.data.length > 0){
-                    _setData((prevState) => ({ ...prevState, 
-                        snack: response.data[0].name
-                    }))
-                    _setScreen(prevState => prevState + 1);
-                    _setValue('');
-                    _setError('');
-                } else {
-                    _setError('Lanche não Identificado.');
-                }
+                _setData((prevState) => ({ ...prevState, 
+                    snack: response.data[0].name
+                }))
+                _setScreen(prevState => prevState + 1);
+                _setValue('');
+                _setError('');
+            }).catch(error => {
+                _setError(error.response.data.message);
             })
         }
 
         if(screen === 3){
             await backendApi.get(`/drinks?id=${_value}`)
             .then(response => {
-                if(response.data.length > 0){
-                    _setData((prevState) => ({ ...prevState, 
-                        drink: response.data[0].name
-                    }));
-                    _setScreen(prevState => prevState + 1);
-                    _setValue('');
-                    _setError('');
-                } else {
-                    _setError('Bebida não Identificado.');
-                }
-            });
+                _setData((prevState) => ({ ...prevState, 
+                    drink: response.data[0].name
+                }));
+                _setScreen(prevState => prevState + 1);
+                _setValue('');
+                _setError('');
+            }).catch(error => {
+                _setError(error.response.data.message);
+            })
         }
         
     };
